@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Eyish Typing Interface</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      font-size: 18px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <h1>Eyish Typing Interface (Latin Keys)</h1>
+  <textarea id="eyishInput" placeholder="Type here..."></textarea>
+
+  <script>
+    const keyMap = {
+      'k': 'k',
+      'd': 'd',
+      'n': 'n',
+      'm': 'm',
+      's': 'ts',
+      'S': 'tsh',      // Shift + s
+      'v': 'h',
+      'p': 'p',
+      'f': 'f',
+      'r': 'r',
+      'g': 'gh',
+      't': 't',
+      'L': 'ly',       // Shift + l
+      'y': 'y',
+      'l': 'l',
+      'a': 'a',
+      'i': 'i',
+      'u': 'u',
+      'e': 'e',
+      'o': 'o'
+    };
+
+    const textarea = document.getElementById('eyishInput');
+
+    textarea.addEventListener('keydown', function(event) {
+      const key = event.key;
+
+      if (keyMap[key]) {
+        event.preventDefault();
+        const cursor = textarea.selectionStart;
+        const value = textarea.value;
+        const replacement = keyMap[key];
+
+        textarea.value = value.slice(0, cursor) + replacement + value.slice(cursor);
+        textarea.selectionStart = textarea.selectionEnd = cursor + replacement.length;
+      }
+    });
+  </script>
+</body>
+</html>
