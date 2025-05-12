@@ -1,50 +1,117 @@
+let scripts = {};
 let currentMap = {};
+let entries = [];
 
-async function loadScripts() {
-  const res = await fetch('scripts.json');
-  const data = await res.json();
+window.onload = () => {
+  loadScripts();
+  document.getElementById('toggleViewBtn').addEventListener('click', toggleView);
+  document.addEventListener('keydown', handleKeyPress);
+};
+
+function toggleView() {
+  const typing = document.getElementById('typingView');
+  const creator = document.getElementById('creatorView');
+  const btn = document.getElementById('toggleViewBtn');
+  if (typing.style.display === 'none') {
+    typing.style.display = '';
+    creator.style.display = 'none';
+    btn.textContent = 'Switch to Script Creator';
+  } else {
+    typing.style.display = 'none';
+    creator.style.display = '';
+    btn.textContent = 'Switch to Typing Interface';
+  }
+}
+
+function loadScripts() {
+  const saved = localStorage.getItem('conlang_scripts');
+  if (saved) scripts = JSON.parse(saved);
 
   const selector = document.getElementById('scriptSelector');
-  for (const lang in data) {
+  selector.innerHTML = '';
+
+  for (const name in scripts) {
     const option = document.createElement('option');
-    option.value = lang;
-    option.textContent = lang;
+    option.value = name;
+    option.textContent = name;
     selector.appendChild(option);
+  }
+
+  if (selector.options.length > 0) {
+    selector.value = Object.keys(scripts)[0];
+    selector.dispatchEvent(new Event('change'));
   }
 
   selector.addEventListener('change', () => {
     const selected = selector.value;
     currentMap = {};
-    data[selected].forEach(entry => {
-      currentMap[entry.key] = entry.alphabet;
+    scripts[selected].forEach(entry => {
+      currentMap[entry.key.toLowerCase()] = entry.alphabet;
     });
   });
-
-  // Auto-select the first script
-  selector.value = Object.keys(data)[0];
-  selector.dispatchEvent(new Event('change'));
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  loadScripts();
+function handleKeyPress(event) {
+  const textarea = document.getElementById('outputArea');
+  const key = event.key.toLowerCase();
 
-  const input = document.getElementById('eyishInput');
-  input.addEventListener('keydown', (event) => {
-    if (event.ctrlKey || event.altKey || event.metaKey) return;
+  if (event.key === 'Backspace') {
+    textarea.value = textarea.value.slice(0, -1);
+    return;
+  }
 
-    const key = event.key;
-    if (currentMap[key]) {
-      event.preventDefault();
-      const cursor = input.selectionStart;
-      const value = input.value;
-      const replacement = currentMap[key];
+  if (currentMap[key]) {
+    textarea.value += currentMap[key];
+  }
 
-      input.value = value.slice(0, cursor) + replacement + value.slice(cursor);
-      input.selectionStart = input.selectionEnd = cursor + replacement.length;
-    } else if (key.length === 1 && !currentMap[key]) {
-      // Block all unmapped printable characters
-      event.preventDefault();
-    }
-    // Allow non-printable/navigation keys like Backspace, Enter, arrows
+  event.preventDefault();
+}
+
+function addEntry() {
+  const key = document.getElementById('keyInput').value.trim();
+  const alphabet = document.getElementById('alphabetInput').value.trim();
+  const ipa = document.getElementById('ipaInput').value.trim();
+
+  if (!key || !alphabet) return alert('Key and Alphabet are required.');
+
+  entries.push({ key, alphabet, ipa });
+  updateEntryTable();
+
+  document.getElementById('keyInput').value = '';
+  document.getElementById('alphabetInput').value = '';
+  document.getElementById('ipaInput').value = '';
+}
+
+function updateEntryTable() {
+  const table = document.getElementById('entryTableBody');
+  table.innerHTML = '';
+  entries.forEach((entry, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${entry.key}</td>
+      <td>${entry.alphabet}</td>
+      <td>${entry.ipa || ''}</td>
+      <td><button class="btn btn-sm btn-danger" onclick="deleteEntry(${index})">Delete</button></td>
+    `;
+    table.appendChild(row);
   });
-});
+}
+
+function deleteEntry(index) {
+  entries.splice(index, 1);
+  updateEntryTable();
+}
+
+function saveScript() {
+  const name = document.getElementById('scriptName').value.trim();
+  if (!name) return alert('Please enter a script name.');
+  if (entries.length === 0) return alert('No entries to save.');
+
+  scripts[name] = entries;
+  localStorage.setItem('conlang_scripts', JSON.stringify(scripts));
+
+  entries = [];
+  updateEntryTable();
+  loadScripts();
+  alert(`Script "${name}" saved!`);
+}
