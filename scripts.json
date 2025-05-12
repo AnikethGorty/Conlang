@@ -1,0 +1,12 @@
+{
+  "Eyish": [
+    { "key": "k", "alphabet": "k", "ipa": "k" },
+    { "key": "d", "alphabet": "d", "ipa": "d" },
+    { "key": "s", "alphabet": "ts", "ipa": "ts" },
+    { "key": "S", "alphabet": "tsh", "ipa": "tʃʰ" }
+  ],
+  "Testian": [
+    { "key": "a", "alphabet": "α", "ipa": "a" },
+    { "key": "b", "alphabet": "β", "ipa": "b" }
+  ]
+}
