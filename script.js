@@ -20,6 +20,7 @@ async function loadScripts() {
     });
   });
 
+  // Auto-select the first script
   selector.value = Object.keys(data)[0];
   selector.dispatchEvent(new Event('change'));
 }
@@ -40,8 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       input.value = value.slice(0, cursor) + replacement + value.slice(cursor);
       input.selectionStart = input.selectionEnd = cursor + replacement.length;
-    } else {
+    } else if (key.length === 1 && !currentMap[key]) {
+      // Block all unmapped printable characters
       event.preventDefault();
     }
+    // Allow non-printable/navigation keys like Backspace, Enter, arrows
   });
 });
