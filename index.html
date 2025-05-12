@@ -2,19 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Eyish Typing</title>
+  <title>Eyish Typing Interface</title>
   <style>
     body { font-family: sans-serif; padding: 20px; }
     textarea { width: 100%; height: 200px; font-size: 18px; padding: 10px; }
+    button { margin-top: 10px; padding: 10px 15px; font-size: 16px; }
   </style>
 </head>
 <body>
   <h1>Eyish Typing Interface</h1>
 
-  <label for="scriptSelector">Choose script:</label>
+  <label for="scriptSelector">Choose Script:</label>
   <select id="scriptSelector"></select>
 
   <textarea id="eyishInput" placeholder="Start typing..."></textarea>
+
+  <br>
+  <button onclick="location.href='editor.html'">Create or Edit Scripts</button>
 
   <script src="script.js"></script>
 </body>
