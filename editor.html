@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Script Editor</title>
+  <style>
+    input { margin: 5px; }
+    table, td, th { border: 1px solid #ccc; border-collapse: collapse; padding: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Script Editor</h1>
+
+  <label for="langName">Language Name:</label>
+  <input type="text" id="langName" placeholder="e.g., Eyish">
+
+  <button onclick="addRow()">Add Row</button>
+  <table>
+    <thead><tr><th>Key</th><th>Alphabet</th><th>IPA (optional)</th></tr></thead>
+    <tbody id="mappingTable"></tbody>
+  </table>
+
+  <button onclick="saveScript()">Save Script</button>
+
+  <script src="editor.js"></script>
+</body>
+</html>
