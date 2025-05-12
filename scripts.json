@@ -1,12 +1,24 @@
 {
-  "Eyish": [
+  "eyish": [
     { "key": "k", "alphabet": "k", "ipa": "k" },
     { "key": "d", "alphabet": "d", "ipa": "d" },
+    { "key": "n", "alphabet": "n", "ipa": "n" },
+    { "key": "m", "alphabet": "m", "ipa": "m" },
     { "key": "s", "alphabet": "ts", "ipa": "ts" },
-    { "key": "S", "alphabet": "tsh", "ipa": "tʃʰ" }
-  ],
-  "Testian": [
-    { "key": "a", "alphabet": "α", "ipa": "a" },
-    { "key": "b", "alphabet": "β", "ipa": "b" }
+    { "key": "S", "alphabet": "tsh", "ipa": "tʃ" },
+    { "key": "v", "alphabet": "h", "ipa": "h" },
+    { "key": "p", "alphabet": "p", "ipa": "p" },
+    { "key": "f", "alphabet": "f", "ipa": "f" },
+    { "key": "r", "alphabet": "r", "ipa": "r" },
+    { "key": "g", "alphabet": "gh", "ipa": "ɣ" },
+    { "key": "t", "alphabet": "t", "ipa": "t" },
+    { "key": "L", "alphabet": "ly", "ipa": "ʎ" },
+    { "key": "y", "alphabet": "y", "ipa": "j" },
+    { "key": "l", "alphabet": "l", "ipa": "l" },
+    { "key": "a", "alphabet": "a", "ipa": "ä" },
+    { "key": "i", "alphabet": "i", "ipa": "i" },
+    { "key": "u", "alphabet": "u", "ipa": "u" },
+    { "key": "e", "alphabet": "e", "ipa": "e" },
+    { "key": "o", "alphabet": "o", "ipa": "o" }
   ]
 }
